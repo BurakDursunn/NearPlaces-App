@@ -18,6 +18,7 @@ const GoogleMapComponent = ({ places }) => {
       mapContainerStyle={{ width: "100%", height: "400px" }} // Harita boyutu
       center={defaultCenter} // Harita merkezi
       zoom={14} // Zoom seviyesi
+      disableDefaultUI={true} // Harita üzerindeki varsayılan arayüz öğelerini gizle
     >
       {places.map((place, index) => (
         <Marker
