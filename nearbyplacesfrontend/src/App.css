@@ -1,0 +1,103 @@
+/* General body styling */
+body {
+  background-color: #f4f7f6;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Container and title styling */
+.container {
+  text-align: center;
+  margin: 20px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+/* Alert styling */
+.alert {
+  margin-top: 20px;
+}
+
+/* Form styling */
+form {
+  padding: 20px;
+}
+
+input, button {
+  border-radius: 10px;
+}
+
+/* Button styling */
+button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+input::placeholder {
+  font-style: italic;
+}
+
+/* Styling for place list container */
+.place-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+  gap: 20px;
+  justify-items: center;
+  margin-top: 30px;
+}
+
+/* Styling for each place card */
+.place-card {
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  height: 250px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Hover effect for place card */
+.place-card:hover {
+  transform: translateY(-5px); /* Hover movement */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Hover shadow */
+}
+
+/* Styling for the place card title */
+.place-card .card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Styling for place card text */
+.place-card .card-text {
+  font-size: 0.9rem;
+  color: #333;
+  margin: 0;
+}
+
+.place-card .card-text strong {
+  color: #555;
+}
+
+/* Google Map container styling */
+.google-map-container {
+  margin-top: 30px;
+  width: 100%;
+  height: 400px;
+  display: block;
+  margin-left: auto;
+  
+  margin-right: auto;
+}
