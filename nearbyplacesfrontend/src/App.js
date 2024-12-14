@@ -15,8 +15,8 @@ function App() {
   useEffect(() => {
     const fetchApiKey = async () => {
       try {
-        const response = await fetch("/api/google-api-key"); // Make request to your backend to get the API key
-        const data = await response.json();
+        const response = await fetch("http://localhost:8070/api/google-api-key"); // Make request to your backend to get the API key
+        const data = await response.text(); // If it's a plain string response
         setApiKey(data); // Store the API key in the state
       } catch (err) {
         console.error("Error fetching Google API key:", err);
@@ -28,7 +28,7 @@ function App() {
 
   const handleSearch = async (latitude, longitude, radius) => {
     if (!latitude || !longitude || !radius) {
-      setError("Please provide valid input values.");
+      setError("Latitude, Longitude, and Radius are required.");
       return;
     }
 
