@@ -1,8 +1,9 @@
 package com.example.nearbyplacesapi.model;
 
-
+// PlaceResult class that represents the result of a place search
 public class PlaceResult {
 
+    // Geometry object that contains the location of the place in latitude and longitude
     private Geometry geometry;
     private String name;
     private String vicinity;
@@ -26,7 +27,7 @@ public class PlaceResult {
         this.vicinity = vicinity;
     }
 
-    // Geometry inner class
+    // Geometry inner class for location information
     public static class Geometry {
         private Location location;
 
@@ -38,7 +39,7 @@ public class PlaceResult {
         }
     }
 
-    // Location inner class
+    // Location inner class for latitude and longitude information
     public static class Location {
         private Double lat;
         private Double lng;

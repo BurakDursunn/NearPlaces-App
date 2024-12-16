@@ -7,9 +7,9 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class GooglePlacesConfig {
 
+    // create a new RestTemplate bean
     @Bean
     public RestTemplate restTemplate() {
-        // create a new RestTemplate bean
         return new RestTemplate();
     }
 }

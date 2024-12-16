@@ -12,8 +12,10 @@ import java.util.List;
 @RestController
 public class PlacesController {
 
+    // Inject GooglePlacesService and RateLimitConfig
     private final GooglePlacesService googlePlacesService;
     private final RateLimitConfig rateLimitConfig;
+
 
     public PlacesController(GooglePlacesService googlePlacesService, RateLimitConfig rateLimitConfig) {
         this.googlePlacesService = googlePlacesService;
@@ -26,10 +28,12 @@ public class PlacesController {
             @RequestParam Double longitude,
             @RequestParam Double radius) {
 
+        // Check if the request is allowed
         if (!rateLimitConfig.isRequestAllowed(rateLimitConfig.bucket())) {
             throw new RateLimitExceededException("Rate limit exceeded. Please try again later.");
         }
 
+        // Call GooglePlacesService to get nearby places
         return googlePlacesService.getNearbyPlaces(latitude, longitude, radius);
     }
 }

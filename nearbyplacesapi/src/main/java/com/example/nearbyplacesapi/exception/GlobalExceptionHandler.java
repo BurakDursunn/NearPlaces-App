@@ -9,16 +9,19 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    // Handle RateLimitExceededException
     @ExceptionHandler(RateLimitExceededException.class)
     public ResponseEntity<String> handleRateLimitExceededException(RateLimitExceededException ex) {
-        // Rate limit aşımı durumunda 429 HTTP kodu döneceğiz
+
+        // Return 429 HTTP status code for rate limit exceeded exception
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
                 .body(ex.getMessage());
     }
 
+    // Handle all other exceptions
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGeneralException(Exception ex) {
-        // Diğer tüm hatalar için 500 HTTP kodu döneceğiz
+        // For all other exceptions, return 500 HTTP status code
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("An unexpected error occurred: " + ex.getMessage());
     }

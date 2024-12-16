@@ -4,7 +4,9 @@ import java.util.List;
 
 public class PlaceResponse {
 
+    // status is a string that indicates the status of the request
     private String status;
+    // results is a list of PlaceResult objects
     private List<PlaceResult> results;
 
 

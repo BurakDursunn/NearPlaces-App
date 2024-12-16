@@ -7,16 +7,19 @@ import java.util.Objects;
 @Entity
 public class Place {
 
+    // Primary key
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Columns
     private Double latitude;
     private Double longitude;
     private Double radius;
     private String name;
     private String vicinity;
 
+    // queryKey is a unique key that is used to identify a place
     @Column(unique = true)
     private String queryKey;
 
@@ -59,6 +62,7 @@ public class Place {
         this.vicinity = vicinity;
     }
 
+    // We use this method because we want to compare the objects based on the queryKey
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,6 +73,7 @@ public class Place {
                 Objects.equals(radius, place.radius);
     }
 
+    // We use this method because we want to compare the objects based on the queryKey
     @Override
     public int hashCode() {
         return Objects.hash(latitude, longitude, radius);
