@@ -39,7 +39,7 @@ function App() {
     <LoadScript googleMapsApiKey={apiKey}>
       <div className="App">
         <div className="container text-center">
-          <h1>Nearby Places</h1>
+          
           <SearchForm onSearch={handleSearch} />
           {error && <div className="alert alert-danger">{error}</div>}
           {loading && <div>Loading...</div>}
