@@ -1,30 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SearchForm from "./components/SearchForm";
 import PlaceList from "./components/PlaceList";
 import GoogleMapComponent from "./components/GoogleMapComponent";
 import { LoadScript } from "@react-google-maps/api"; // LoadScript is a component that loads the Google Maps JavaScript API
 import placeService from "./services/placeService";
 
+
 function App() {
-  const [apiKey, setApiKey] = useState(null); // State for storing the API key
+
+  const apiKey = process.env.REACT_APP_API_KEY_GOOGLE;
+
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fetch API key from backend on component mount
-  useEffect(() => {
-    const fetchApiKey = async () => {
-      try {
-        const response = await fetch("http://localhost:8070/api/google-api-key"); // Make request to your backend to get the API key
-        const data = await response.text(); // If it's a plain string response
-        setApiKey(data); // Store the API key in the state
-      } catch (err) {
-        console.error("Error fetching Google API key:", err);
-        setError("Unable to fetch Google Maps API key.");
-      }
-    };
-    fetchApiKey();
-  }, []); // Empty dependency array ensures this runs only once on component mount
 
   const handleSearch = async (latitude, longitude, radius) => {
     if (!latitude || !longitude || !radius) {
@@ -49,10 +38,7 @@ function App() {
     }
   };
 
-  if (!apiKey) {
-    return <div>Loading API key...</div>; // Show loading message until the API key is fetched
-  }
-
+  
   return (
     <LoadScript googleMapsApiKey={apiKey}>
       <div className="App">
