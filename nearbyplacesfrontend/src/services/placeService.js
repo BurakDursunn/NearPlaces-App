@@ -9,11 +9,11 @@ const getNearbyPlaces = async (latitude, longitude, radius) => {
       `${BASE_URL}?latitude=${latitude}&longitude=${longitude}&radius=${radius}`
     );
 
-    console.log("API Response:", response.data); // Gelen veriyi kontrol edin
+    console.log("API Response:", response.data); 
 
-    return response.data; // Veriyi döndür
+    return response.data; 
   } catch (error) {
-    console.error("Error fetching nearby places:", error); // Hata durumunda log
+    console.error("Error fetching nearby places:", error); 
     throw error;
   }
 };

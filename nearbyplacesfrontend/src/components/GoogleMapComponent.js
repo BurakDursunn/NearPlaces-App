@@ -1,37 +1,51 @@
 import React from "react";
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
 
 const GoogleMapComponent = ({ places }) => {
-  const defaultCenter = places.length > 0
-    ? { lat: parseFloat(places[0].latitude), lng: parseFloat(places[0].longitude) }
-    : { lat: 0, lng: 0 };
+  if (places.length === 0) {
+    return <div>No places available</div>;
+  }
 
-  // Kırmızı marker simgesi
-  const redMarkerIcon = {
-    url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png", // Kırmızı marker ikonu URL
-    scaledSize: { width: 40, height: 40 }, // İkon boyutunu ayarla (isteğe bağlı)
+  const defaultCenter = {
+    lat: parseFloat(places[0].latitude),
+    lng: parseFloat(places[0].longitude), 
   };
+
+  const largeGreenMarkerIcon = {
+    url: "https://cdn.pixabay.com/photo/2014/04/03/10/03/google-309739_640.png",
+    scaledSize: { width: 30, height: 40 }, 
+  };
+
+  console.log("Map Center:", defaultCenter); 
 
   return (
     <GoogleMap
-      key={places.length} // Haritanın yeniden render edilmesi için benzersiz bir key
-      mapContainerStyle={{ width: "100%", height: "400px" }} // Harita boyutu
-      center={defaultCenter} // Harita merkezi
-      zoom={14} // Zoom seviyesi
-      disableDefaultUI={true} // Harita üzerindeki varsayılan arayüz öğelerini gizle
+      key={places.length} 
+      mapContainerStyle={{ width: "100%", height: "500px" }} 
+      center={defaultCenter} 
+      zoom={13} 
+      disableDefaultUI={true} 
     >
-      {places.map((place, index) => (
-        <Marker
-          key={index} // Benzersiz anahtar
-          position={{ lat: parseFloat(place.latitude), lng: parseFloat(place.longitude) }} // Marker pozisyonu
-          icon={redMarkerIcon} // Kırmızı marker ikonunu kullan
-          label={{
-            text: place.name, // Marker'ın etiketi
-            fontSize: "114px",
-            color: "blue",
-          }}
-        />
-      ))}
+      {places.map((place, index) => {
+        const position = {
+          lat: parseFloat(place.latitude), 
+          lng: parseFloat(place.longitude),
+        };
+
+        console.log(`Marker ${index + 1}:`, position); 
+
+        return (
+          <React.Fragment key={index}>
+           
+            {/* Marker */}
+            <MarkerF
+              position={position} 
+              icon={largeGreenMarkerIcon} 
+            />
+           
+          </React.Fragment>
+        );
+      })}
     </GoogleMap>
   );
 };

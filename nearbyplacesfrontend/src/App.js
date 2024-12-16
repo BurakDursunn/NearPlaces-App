@@ -2,18 +2,15 @@ import React, { useState } from "react";
 import SearchForm from "./components/SearchForm";
 import PlaceList from "./components/PlaceList";
 import GoogleMapComponent from "./components/GoogleMapComponent";
-import { LoadScript } from "@react-google-maps/api"; // LoadScript is a component that loads the Google Maps JavaScript API
+import { LoadScript } from "@react-google-maps/api"; 
 import placeService from "./services/placeService";
 
-
 function App() {
-
   const apiKey = process.env.REACT_APP_API_KEY_GOOGLE;
 
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
 
   const handleSearch = async (latitude, longitude, radius) => {
     if (!latitude || !longitude || !radius) {
@@ -38,7 +35,6 @@ function App() {
     }
   };
 
-  
   return (
     <LoadScript googleMapsApiKey={apiKey}>
       <div className="App">

@@ -1,18 +1,65 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Card, CardContent, Typography, Box } from '@mui/material';
+
+const cardStyle = {
+  maxWidth: 345,
+  width: '100%', 
+  minHeight: 400, 
+  borderRadius: '16px',
+  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+  transition: 'transform 0.3s ease, box-shadow 0.3s ease', 
+  '&:hover': {
+    transform: 'scale(1.05)', 
+    boxShadow: '0 12px 24px rgba(0, 0, 0, 0.2)', 
+  },
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between', 
+  padding: '20px', 
+  boxSizing: 'border-box',
+  backgroundColor: '#fff', 
+};
+
+const titleStyle = {
+  fontWeight: '600',
+  color: '#1976d2',
+  fontSize: '1.5rem',
+  marginBottom: '12px', 
+  textAlign: 'center',
+};
+
+const contentStyle = {
+  color: '#555', 
+  fontSize: '1rem',
+  lineHeight: '1.5', 
+  marginBottom: '8px',
+};
 
 const PlaceCard = ({ place }) => {
   return (
-    <Card className="place-card shadow-sm rounded">
-      <Card.Body>
-        <Card.Title className="text-center text-primary">{place.name}</Card.Title>
-        <Card.Text>
-          <strong>Vicinity:</strong> {place.vicinity}
-        </Card.Text>
-        <Card.Text>
-          <strong>Coordinates:</strong> Latitude: {place.latitude}, Longitude: {place.longitude}
-        </Card.Text>
-      </Card.Body>
+    <Card sx={cardStyle}>
+      <CardContent>
+        {/* Başlık */}
+        <Typography variant="h5" sx={titleStyle}>
+          {place.name}
+        </Typography>
+
+        {/* Vicinity */}
+        <Box mt={2}>
+          <Typography variant="body2" sx={contentStyle}>
+            <strong>Vicinity:</strong> {place.vicinity}
+          </Typography>
+        </Box>
+
+        {/* Koordinatlar */}
+        <Box mt={2}>
+          <Typography variant="body2" sx={contentStyle}>
+            <strong>Coordinates:</strong>
+            <br />
+            Latitude: <strong>{place.latitude}</strong>, Longitude: <strong>{place.longitude}</strong>
+          </Typography>
+        </Box>
+      </CardContent>
     </Card>
   );
 };
