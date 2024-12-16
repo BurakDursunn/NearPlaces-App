@@ -36,4 +36,4 @@ build/
 # Add files with sensitive data (e.g., API keys, DB credentials) here.
 ./src/main/resources/application.properties
 
-.env
+
