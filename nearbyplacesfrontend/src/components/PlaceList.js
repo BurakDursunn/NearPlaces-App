@@ -2,6 +2,7 @@ import React from 'react';
 import PlaceCard from './PlaceCard';
 import { Row, Col } from 'react-bootstrap';
 
+// PlaceList component to display the list of places
 const PlaceList = ({ places }) => {
   return (
     <div className="container py-5">

@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 
+
 const SearchForm = ({ onSearch }) => {
+  // State to store form input values
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
   const [radius, setRadius] = useState('');
 
+  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     onSearch(latitude, longitude, radius);

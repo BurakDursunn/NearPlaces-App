@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 
+// style object for card component
 const cardStyle = {
   maxWidth: 345,
   width: '100%', 
@@ -37,6 +38,7 @@ const contentStyle = {
 
 const PlaceCard = ({ place }) => {
   return (
+    // Card component for each place 
     <Card sx={cardStyle}>
       <CardContent>
         {/* Başlık */}

@@ -1,16 +1,19 @@
 import React from "react";
 import { GoogleMap, MarkerF } from "@react-google-maps/api";
 
+
 const GoogleMapComponent = ({ places }) => {
   if (places.length === 0) {
     return <div>No places available</div>;
   }
 
+  // Default center of the map is the first place
   const defaultCenter = {
     lat: parseFloat(places[0].latitude),
     lng: parseFloat(places[0].longitude), 
   };
 
+  // Custom marker icon for the map 
   const largeGreenMarkerIcon = {
     url: "https://cdn.pixabay.com/photo/2014/04/03/10/03/google-309739_640.png",
     scaledSize: { width: 30, height: 40 }, 
@@ -18,6 +21,7 @@ const GoogleMapComponent = ({ places }) => {
 
   console.log("Map Center:", defaultCenter); 
 
+  // Google Map component embedded in the app
   return (
     <GoogleMap
       key={places.length} 
