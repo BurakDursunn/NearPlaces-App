@@ -1,9 +1,8 @@
 package com.example.nearbyplacesapi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.Objects;
 
 @Entity
 public class Place {
@@ -18,6 +17,16 @@ public class Place {
     private String name;
     private String vicinity;
 
+    @Column(unique = true)
+    private String queryKey;
+
+    public String getQueryKey() {
+        return queryKey;
+    }
+
+    public void setQueryKey(String queryKey) {
+        this.queryKey = queryKey;
+    }
 
     public Double getLatitude() {
         return latitude;
@@ -48,5 +57,20 @@ public class Place {
     }
     public void setVicinity(String vicinity) {
         this.vicinity = vicinity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Place place = (Place) o;
+        return Objects.equals(latitude, place.latitude) &&
+                Objects.equals(longitude, place.longitude) &&
+                Objects.equals(radius, place.radius);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(latitude, longitude, radius);
     }
 }

@@ -21,6 +21,7 @@ public class PlacesController {
             @RequestParam Double latitude,
             @RequestParam Double longitude,
             @RequestParam Double radius) {
+
         return googlePlacesService.getNearbyPlaces(latitude, longitude, radius);
     }
 }

@@ -28,50 +28,74 @@ public class GooglePlacesService {
     }
 
     public List<Object> getNearbyPlaces(Double latitude, Double longitude, Double radius) {
-        // Google API Request URL
-        String url = String.format(Locale.US,
-                "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%.4f,%.4f&radius=%.4f&key=%s",
-                latitude, longitude, radius, apiKey
-        );
+        String uniqueKey = generateQueryKey(latitude, longitude, radius);
 
-        System.out.println("Google API Request URL: " + url);
-
-
-        // Check if there are places in the database with this latitude, longitude and radius
-        Optional<List<Place>> existingPlaces = placeRepository.findByLatitudeAndLongitudeAndRadius(latitude, longitude, radius);
+        Optional<List<Place>> existingPlaces = placeRepository.findByQueryKey(uniqueKey);
 
         if (existingPlaces.isPresent() && !existingPlaces.get().isEmpty()) {
-
-            // If there are already places in the database for the same query, return them
-            System.out.println("Returning cached places from DB");
+            System.out.println("Returning cached places from DB for key: " + uniqueKey);
             return Collections.singletonList(existingPlaces.get());
         }
 
-        // If it is not in the database, get the data from the API
+        String url = String.format(Locale.US,
+                "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%.4f,%.4f&radius=%.4f&key=%s",
+                latitude, longitude, radius, apiKey);
+
+        System.out.println("Fetching data from Google Places API with URL: " + url);
+
         PlaceResponse placeResponse = restTemplate.getForObject(url, PlaceResponse.class);
 
-        if (placeResponse != null && placeResponse.getStatus().equals("OK")) {
+        if (placeResponse != null && "OK".equals(placeResponse.getStatus())) {
+            System.out.println("Google Places API Response: " + placeResponse);  // API yanıtını logla
 
-            // Convert each result to a Place object before saving to the database correctly
             List<Place> places = placeResponse.getResults().stream().map(result -> {
                 Place place = new Place();
-                place.setLatitude(result.getGeometry().getLocation().getLat());
-                place.setLongitude(result.getGeometry().getLocation().getLng());
-                place.setRadius(radius);  // Save the radius to the database to check if the same query is made again
+
+                Double placeLatitude = result.getGeometry().getLocation().getLat();
+                Double placeLongitude = result.getGeometry().getLocation().getLng();
+                place.setLatitude(placeLatitude);
+                place.setLongitude(placeLongitude);
+
+                place.setRadius(radius);
                 place.setName(result.getName());
-                place.setVicinity(result.getVicinity());
+
+                String vicinity = result.getVicinity();
+                if (vicinity == null || vicinity.isEmpty()) {
+                    vicinity = "Unknown";
+                }
+
+                place.setVicinity(vicinity);
+                place.setQueryKey(generateQueryKey(placeLatitude, placeLongitude, radius, result.getName())); // QueryKey ile name'i kullan
+
                 return place;
             }).collect(Collectors.toList());
 
-            // Save the new places to the database
-            placeRepository.saveAll(places);
+            places.forEach(place -> {
+                boolean exists = placeRepository.existsByQueryKey(place.getQueryKey());
+                if (!exists) {
+                    placeRepository.save(place);
+                    System.out.println("Saving place with key: " + place.getQueryKey());
+                } else {
+                    System.out.println("Place with key " + place.getQueryKey() + " already exists, skipping save.");
+                }
+            });
 
-            // Return the places
             return Collections.singletonList(places);
         } else {
             System.out.println("No response or invalid status from Google Places API.");
         }
-        // Return an empty list if there is no data
+
         return List.of();
+    }
+
+    private String generateQueryKey(Double latitude, Double longitude, Double radius) {
+        return String.format(Locale.US, "%.6f:%.6f:%.2f", latitude, longitude, radius);
+    }
+
+    private String generateQueryKey(Double latitude, Double longitude, Double radius, String name) {
+        if (name == null || name.isEmpty()) {
+            name = "Unknown";
+        }
+        return String.format(Locale.US, "%.6f:%.6f:%.2f:%s", latitude, longitude, radius, name);
     }
 }

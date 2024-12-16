@@ -9,4 +9,11 @@ import java.util.Optional;
 public interface PlaceRepository extends JpaRepository<Place, Long> {
 
     Optional<List<Place>> findByLatitudeAndLongitudeAndRadius(Double latitude, Double longitude, Double radius);
+
+    Optional<List<Place>> findByQueryKey(String queryKey);
+
+    boolean existsByQueryKey(String queryKey);
 }
+
+
+
