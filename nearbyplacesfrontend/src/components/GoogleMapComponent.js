@@ -2,15 +2,15 @@ import React from "react";
 import { GoogleMap, MarkerF } from "@react-google-maps/api";
 
 
-const GoogleMapComponent = ({ places }) => {
+const GoogleMapComponent = ({ places,latitude,longitude }) => {
   if (places.length === 0) {
     return <div>No places available</div>;
   }
 
   // Default center of the map is the first place
   const defaultCenter = {
-    lat: parseFloat(places[0].latitude),
-    lng: parseFloat(places[0].longitude), 
+    lat: parseFloat(latitude),
+    lng: parseFloat(longitude), 
   };
 
   // Custom marker icon for the map 

@@ -13,6 +13,9 @@ function App() {
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [latitude, setLatitude] = useState();
+  const [longitude, setLongitude] = useState();
+
 
   // Define the handleSearch function to fetch the nearby places
   const handleSearch = async (latitude, longitude, radius) => {
@@ -20,6 +23,7 @@ function App() {
       setError("Latitude, Longitude, and Radius are required.");
       return;
     }
+
 
     // Fetch the nearby places
     setLoading(true);
@@ -30,6 +34,8 @@ function App() {
       const response = await placeService.getNearbyPlaces(latitude, longitude, radius);
       if (response && response[0]?.length > 0) {
         setPlaces(response[0]);
+        setLatitude(latitude);
+        setLongitude(longitude);
       } else {
         setPlaces([]);
       }
@@ -41,6 +47,7 @@ function App() {
     }
   };
 
+  
   // Return the JSX for the App component
   return (
     // Load the Google Maps API script with the LoadScript component
@@ -52,7 +59,8 @@ function App() {
           {error && <div className="alert alert-danger">{error}</div>}
           {loading && <div>Loading...</div>}
           {!loading && places.length > 0 && <PlaceList places={places} />}
-          {!loading && places.length > 0 && <GoogleMapComponent places={places} />}
+          {!loading && places.length > 0 && <GoogleMapComponent places={places} latitude={latitude} longitude={longitude} />}
+          
         </div>
       </div>
     </LoadScript>

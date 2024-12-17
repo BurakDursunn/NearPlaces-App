@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 
-
 const SearchForm = ({ onSearch }) => {
   // State to store form input values
   const [latitude, setLatitude] = useState('');
@@ -11,7 +10,30 @@ const SearchForm = ({ onSearch }) => {
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(latitude, longitude, radius);
+    
+    // Validation for latitude, longitude and radius
+    if (!latitude || !longitude || !radius) {
+      alert('Please fill all the fields with valid values.');
+      return;
+    }
+    
+    onSearch(parseFloat(latitude), parseFloat(longitude), parseInt(radius));
+  };
+
+  const handleLongitudeChange = (e) => {
+    const value = e.target.value;
+    // Yalnızca sayılar ve bir adet nokta (.) içermesini sağla
+    if (/^-?\d*\.?\d*$/.test(value)) {
+      setLongitude(value);
+    }
+  };
+
+  const handleLatitudeChange = (e) => {
+    const value = e.target.value;
+    // Yalnızca sayılar ve bir adet nokta (.) içermesini sağla
+    if (/^-?\d*\.?\d*$/.test(value)) {
+      setLatitude(value);
+    }
   };
 
   return (
@@ -24,10 +46,9 @@ const SearchForm = ({ onSearch }) => {
             <Form.Group controlId="latitude" className="mb-3">
               <Form.Label>Latitude:</Form.Label>
               <Form.Control
-                type="number"
-                step="any"
+                type="text" // 'text' olarak değiştirildi
                 value={latitude}
-                onChange={(e) => setLatitude(e.target.value)}
+                onChange={handleLatitudeChange}
                 required
                 placeholder="Enter Latitude"
                 className="form-control-lg"
@@ -37,10 +58,9 @@ const SearchForm = ({ onSearch }) => {
             <Form.Group controlId="longitude" className="mb-3">
               <Form.Label>Longitude:</Form.Label>
               <Form.Control
-                type="number"
-                step="any"
+                type="text" // 'text' olarak değiştirildi
                 value={longitude}
-                onChange={(e) => setLongitude(e.target.value)}
+                onChange={handleLongitudeChange}
                 required
                 placeholder="Enter Longitude"
                 className="form-control-lg"
