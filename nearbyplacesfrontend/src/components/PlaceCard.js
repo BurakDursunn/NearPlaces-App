@@ -5,7 +5,8 @@ import { Card, CardContent, Typography, Box } from '@mui/material';
 const cardStyle = {
   maxWidth: 345,
   width: '100%', 
-  minHeight: 400, 
+  minHeight: 350, 
+  
   borderRadius: '16px',
   boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
   transition: 'transform 0.3s ease, box-shadow 0.3s ease', 
@@ -42,9 +43,18 @@ const PlaceCard = ({ place }) => {
     <Card sx={cardStyle}>
       <CardContent>
         {/* Başlık */}
-        <Typography variant="h5" sx={titleStyle}>
-          {place.name}
-        </Typography>
+        <Typography
+  variant="h5"
+  sx={{
+    ...titleStyle,
+    display: "-webkit-box",       // Flexbox tabanlı bir kutu modeli
+    WebkitBoxOrient: "vertical",  // Kutu yönü dikey
+    WebkitLineClamp: 3,           // Maksimum 2 satır
+    overflow: "hidden",           // Taşan kısmı gizler
+  }}
+>
+  {place.name}
+</Typography>
 
         {/* Vicinity */}
         <Box mt={2}>
@@ -56,10 +66,11 @@ const PlaceCard = ({ place }) => {
         {/* Koordinatlar */}
         <Box mt={2}>
           <Typography variant="body2" sx={contentStyle}>
-            <strong>Coordinates:</strong>
-            <br />
-            Latitude: <strong>{place.latitude}</strong>, Longitude: <strong>{place.longitude}</strong>
+              <strong>Coordinates:</strong>
+              <br />
+              Latitude: <strong>{place.latitude.toFixed(5)}</strong>,  <br />Longitude: <strong>{place.longitude.toFixed(5)}</strong>
           </Typography>
+
         </Box>
       </CardContent>
     </Card>
