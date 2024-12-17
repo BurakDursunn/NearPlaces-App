@@ -3,6 +3,18 @@
 #### **Overview**
 Nearby Places is a full-stack application with a Spring Boot backend, React frontend and PostgreSQL database. It helps users discover places near their location by integrating with the Google Places API. The backend includes features like rate limiting, caching with PostgreSQL, and integrates with Google Maps API for the frontend.
 
+<img width="1440" alt="Ekran Resmi 2024-12-17 23 28 07" src="https://github.com/user-attachments/assets/e88c724d-d65a-4a2f-88e2-afd4c88d1377" />
+
+
+<img width="1440" alt="Ekran Resmi 2024-12-17 23 28 20" src="https://github.com/user-attachments/assets/00ef1c0e-e653-45b5-9698-ed8db1a56dfe" />
+
+
+
+<img width="1440" alt="Ekran Resmi 2024-12-17 23 28 33" src="https://github.com/user-attachments/assets/bf9a2a32-bcf7-44d3-9cba-f18d7d0956d5" />
+
+
+
+
 
 ### **Backend**
 
