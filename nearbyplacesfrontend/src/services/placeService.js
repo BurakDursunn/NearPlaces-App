@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8070/places/nearby";
+const BASE_URL = process.env.REACT_APP_DEPLOYURL+"/places/nearby";
 
 // Function to fetch nearby places from the API
 const getNearbyPlaces = async (latitude, longitude, radius) => {
