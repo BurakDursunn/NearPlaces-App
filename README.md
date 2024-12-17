@@ -109,7 +109,7 @@ The **Place** table stores cached Google Places data with the following structur
 | `query_key`      | `VARCHAR(255)`      | Unique identifier for the query.                              |
 | `name`           | `VARCHAR(255)`      | Place name.                                                   |
 | `vicinity`       | `VARCHAR(255)`      | Vicinity of the place.                                        |
-|------------------|---------------------|----------------------------------------------------------------|
+
 
 
 ---
